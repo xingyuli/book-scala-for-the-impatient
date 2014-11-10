@@ -21,6 +21,16 @@ class Person {
     if (newValue > privateAge) privateAge = newValue
   }
   
+  def this(name: String) {
+    this()
+    this.name = name
+  }
+  
+  def this(name: String, age: Int) {
+    this(name)
+    this.age = age
+  }
+  
 }
 
 object PersonTest {
@@ -35,6 +45,10 @@ object PersonTest {
     
     p.age = 27
     println(p.age)
+    
+    val p1 = new Person
+    val p2 = new Person("God")
+    val p3 = new Person("God", 999)
   }
   
 }
