@@ -1,0 +1,9 @@
+Package structure
+
+The scala package contains core types.
+
+scala.collection and its subpackages contain a collections framework with
+higher-order functions for manipulation. Both scala.collection.immutable and
+scala.collection.mutable data structures are available, with immutable as the
+default. The scala.collection.parallel collections provide automatic parallel
+operation.
