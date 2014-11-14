@@ -1,4 +1,4 @@
-package chapter8_hierarchy.anno_subclass
+package chapter8_inheritance.anno_subclass
 
 object Test {
 

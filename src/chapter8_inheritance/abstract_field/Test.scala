@@ -1,4 +1,4 @@
-package chapter8_hierarchy.abstract_field
+package chapter8_inheritance.abstract_field
 
 object Test {
 

@@ -1,4 +1,4 @@
-package chapter8_hierarchy.object_equality
+package chapter8_inheritance.object_equality
 
 object Test {
 

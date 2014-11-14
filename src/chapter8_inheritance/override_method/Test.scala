@@ -1,4 +1,4 @@
-package chapter8_hierarchy.override_method
+package chapter8_inheritance.override_method
 
 object Test extends App {
   val p = new Employee

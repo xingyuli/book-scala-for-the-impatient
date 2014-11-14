@@ -1,4 +1,4 @@
-package chapter8_hierarchy.early_definition
+package chapter8_inheritance.early_definition
 
 object Test extends App {
 

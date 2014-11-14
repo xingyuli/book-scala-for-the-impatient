@@ -1,4 +1,4 @@
-package chapter8_hierarchy.override_field
+package chapter8_inheritance.override_field
 
 object Test extends App {
 
