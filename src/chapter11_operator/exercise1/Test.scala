@@ -1,4 +1,4 @@
-package chapter11.exercise1
+package chapter11_operator.exercise1
 
 object Test {
 

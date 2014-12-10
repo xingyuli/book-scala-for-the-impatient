@@ -1,4 +1,4 @@
-package chapter11.exercise5
+package chapter11_operator.exercise5
 
 import scala.collection.mutable.ArrayBuffer
 
