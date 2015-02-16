@@ -5,27 +5,28 @@ import scala.util.parsing.combinator.RegexParsers
 
 object Test extends App {
 
+  // NOTE: this is also the answer for exercise 7
   class ExprParser extends RegexParsers {
     
     val number = "[0-9]+".r
     
     def expr: Parser[Int] = term ~ rep(("+" | "-") ~ expr) ^^ {
       case t ~ Nil => t
-      case t ~ r => r.foldLeft(t) { (x: Int, e: ~[String, Int]) =>
+      case t ~ r => r.foldLeft(t) { (acc, e) =>
         e match {
-          case "+" ~ v => x + v
-          case "-" ~ v => x - v
+          case "+" ~ v => acc + v
+          case "-" ~ v => acc - v
         }
       }
     }
     
     def term: Parser[Int] = _pow ~ rep(("*" | "/" | "%") ~ _pow) ^^ {
       case p ~ Nil => p
-      case p ~ r => r.foldLeft(p) { (x: Int, e: ~[String, Int]) =>
+      case p ~ r => r.foldLeft(p) { (acc, e) =>
         e match {
-          case "*" ~ v => x * v
-          case "/" ~ v => x / v
-          case "%" ~ v => x % v
+          case "*" ~ v => acc * v
+          case "/" ~ v => acc / v
+          case "%" ~ v => acc % v
         }
       }
     }

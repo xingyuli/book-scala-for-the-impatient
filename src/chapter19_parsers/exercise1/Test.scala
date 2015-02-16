@@ -10,21 +10,21 @@ object Test extends App {
     
     def expr: Parser[Int] = term ~ rep(("+" | "-") ~ expr) ^^ {
       case t ~ Nil => t
-      case t ~ r => r.foldLeft(t) { (x: Int, e: ~[String, Int]) =>
+      case t ~ r => r.foldLeft(t) { (acc, e) =>
         e match {
-          case "+" ~ v => x + v
-          case "-" ~ v => x - v
+          case "+" ~ v => acc + v
+          case "-" ~ v => acc - v
         }
       }
     }
     
     def term: Parser[Int] = factor ~ rep(("*" | "/" | "%") ~ factor) ^^ {
       case f ~ Nil => f
-      case f ~ r => r.foldLeft(f) { (x: Int, e: ~[String, Int]) =>
+      case f ~ r => r.foldLeft(f) { (acc, e) =>
         e match {
-          case "*" ~ v => x * v
-          case "/" ~ v => x / v
-          case "%" ~ v => x % v
+          case "*" ~ v => acc * v
+          case "/" ~ v => acc / v
+          case "%" ~ v => acc % v
         }
       }
     }
