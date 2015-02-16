@@ -10,12 +10,14 @@ object Test extends App {
   class ISO8601DateTimeParser extends RegexParsers {
     
     def datetime: Parser[Date] = date ~ opt("T" ~> time) ^^ { result =>
-      def calWithYearMonthDay(y: Int, m: Int, d: Int) = {
-        val c = Calendar.getInstance
-        c.set(Calendar.YEAR, y)
-        c.set(Calendar.MONTH, m - 1)
-        c.set(Calendar.DATE, d)
-        c
+      def calWithYearMonthDay = result._1 match {
+        case y ~ m ~ d => {
+          val c = Calendar.getInstance
+          c.set(Calendar.YEAR, y)
+          c.set(Calendar.MONTH, m - 1)
+          c.set(Calendar.DATE, d)
+          c 
+        }
       }
       
       def calWithHourMinSec(c: Calendar)(h: Int, m: Int, s: Int) = {
@@ -24,10 +26,10 @@ object Test extends App {
         c.set(Calendar.SECOND, s)
         c
       }
-      
-      result match {
-        case (y ~ mon ~ d) ~ None => calWithYearMonthDay(y, mon, d).getTime
-        case (y ~ mon ~ d) ~ Some(h ~ min ~ s) => calWithHourMinSec(calWithYearMonthDay(y, mon, d))(h, min, s).getTime
+
+      result._2 match {
+        case None => calWithYearMonthDay.getTime
+        case Some(h ~ min ~ s) => calWithHourMinSec(calWithYearMonthDay)(h, min, s).getTime
       }
     }
 
