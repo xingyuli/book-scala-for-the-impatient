@@ -41,15 +41,18 @@ object Test extends App {
     }
   }
   
-  class FinalAvgActor(next: Actor) extends Actor {
+  class FinalAvgActor(subresult: Int, next: Actor) extends Actor {
     override def act() {
       var finalAvg = 0
-      while (true) {
-        receiveWithin(1000) {
-          case RangeAvg(from, to, avg) => finalAvg = if (finalAvg == 0) avg else (finalAvg + avg) / 2
-          case TIMEOUT => next ! FinalAvg(finalAvg); exit()
+      var subresultCounter = 0
+      while (subresultCounter < subresult) {
+        receive {
+          case RangeAvg(from, to, avg) =>
+            finalAvg = if (finalAvg == 0) avg else (finalAvg + avg) / 2
+            subresultCounter += 1
         }
       }
+      next ! FinalAvg(finalAvg)
     }
   }
 
@@ -57,9 +60,9 @@ object Test extends App {
   val data = randomArray(limit)
   
   actor {
-    val finalAvgActor = new FinalAvgActor(self).start()
+    val workerSize = 4
+    val finalAvgActor = new FinalAvgActor(workerSize, self).start()
     
-    val workerSize = 2
     val workers = ArrayBuffer[Actor]()
     for (i <- 0 until workerSize) workers += new RangeAvgActor(data, finalAvgActor).start
     
